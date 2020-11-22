@@ -1,8 +1,8 @@
 ﻿  PLab11.cpp
-C:\Users\Ангелина\source\repos\IIISemester\PLab11\PLab11\PLab11.cpp(578,20): warning C4101: 'v': unreferenced local variable
-C:\Users\Ангелина\source\repos\IIISemester\PLab11\PLab11\PLab11.cpp(600,20): warning C4101: 'v': unreferenced local variable
-C:\Users\Ангелина\source\repos\IIISemester\PLab11\PLab11\PLab11.cpp(622,20): warning C4101: 'v': unreferenced local variable
-C:\Users\Ангелина\source\repos\IIISemester\PLab11\PLab11\PLab11.cpp(700,20): warning C4101: 'v': unreferenced local variable
-C:\Users\Ангелина\source\repos\IIISemester\PLab11\PLab11\PLab11.cpp(722,20): warning C4101: 'v': unreferenced local variable
-C:\Users\Ангелина\source\repos\IIISemester\PLab11\PLab11\PLab11.cpp(744,20): warning C4101: 'v': unreferenced local variable
+C:\Users\Ангелина\source\repos\IIISemester\PLab11\PLab11\PLab11.cpp(355,20): warning C4101: 'v': unreferenced local variable
+C:\Users\Ангелина\source\repos\IIISemester\PLab11\PLab11\PLab11.cpp(377,20): warning C4101: 'v': unreferenced local variable
+C:\Users\Ангелина\source\repos\IIISemester\PLab11\PLab11\PLab11.cpp(399,20): warning C4101: 'v': unreferenced local variable
+C:\Users\Ангелина\source\repos\IIISemester\PLab11\PLab11\PLab11.cpp(477,20): warning C4101: 'v': unreferenced local variable
+C:\Users\Ангелина\source\repos\IIISemester\PLab11\PLab11\PLab11.cpp(499,20): warning C4101: 'v': unreferenced local variable
+C:\Users\Ангелина\source\repos\IIISemester\PLab11\PLab11\PLab11.cpp(521,20): warning C4101: 'v': unreferenced local variable
   PLab11.vcxproj -> C:\Users\Ангелина\source\repos\IIISemester\PLab11\Debug\PLab11.exe

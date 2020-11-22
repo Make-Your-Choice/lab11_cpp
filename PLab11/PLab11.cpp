@@ -447,10 +447,10 @@ int main()
     {
         for (int j = 0; j < m; j++)
         {
-            printf("\nInput number of bonuses for %d special: ", i + 1);
+            printf("\nInput number of bonuses for [%d][%d] special: ", i + 1, j + 1);
             cin >> x2;
             spec_offer4[i][j].change_bonus_num(x2);
-            printf("Input bonus definition for %d special: ", i + 1);
+            printf("Input bonus definition for [%d][%d] special: ", i + 1, j + 1);
             cin >> y2;
             spec_offer4[i][j].change_def(y2);
         }
@@ -561,7 +561,7 @@ int main()
 
     //массив с помощью конструктора с параметром
 
-    /*printf("\nMassive using constructor with a single parameter\n");
+    printf("\nMassive using constructor with a single parameter\n");
     special spec_offer5[1];
     string title1 = "rrrr";
     string title2 = "ffff";
@@ -569,11 +569,11 @@ int main()
     for (int i = 0; i < 2; i++)
     {
         book5[i].output();
-    }*/
+    }
 
     //мелкое копирование
 
-    /*printf("\nShallow copying\n");
+    printf("\nShallow copying\n");
     char* ptr1;
     ptr1 = new char[10];
 
@@ -592,11 +592,11 @@ int main()
     printf("\nspec_offer6\n");
     spec_offer6.output();
     printf("\nspec_offer7\n");
-    spec_offer7.output();*/
+    spec_offer7.output();
 
     //глубокое копирование
 
-    /*printf("\nDeep copying and overload\n");
+    printf("\nDeep copying and overload\n");
     special* spec_offer_1;
     char* ptr;
     ptr = new char[10];
@@ -620,7 +620,7 @@ int main()
     printf("\nspec_offer_1\n");
     spec_offer_1->output();
     printf("\nspec_offer_2\n");
-    spec_offer_2->output();*/
+    spec_offer_2->output();
     return 0;
 }
 
