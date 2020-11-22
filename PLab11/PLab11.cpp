@@ -89,7 +89,9 @@ public:
 class book_store //основной класс
 {
     special spec_offer[nmax]; //ассоциативный класс
+    special spec_offer1[nmax][nmax];
     int n;
+    int m;
     std::string title = ""; //название
     std::string author = ""; //автор
     std::string genre = ""; //жанр
@@ -99,9 +101,11 @@ public:
     int num_stock; //количество в магазине
     book_store(special spec_offer[nmax]); //конструктор параметром
     book_store(string str1, string str2, string str3, int a, int b, int c, int d, special spec_offer[nmax]); //конструктор с параметрами
+    book_store(string str1, string str2, string str3, int a, int b, int c, int d, int e, special spec_offer[nmax / 10][nmax / 10]);
     book_store(string str1); //конструктор параметром
     void get();
     void output();
+    void output1();
     void sell();
     void price_rise();
     void rearrange();
@@ -114,6 +118,7 @@ public:
     int summarize(int a);
     static int space_left; //статическое поле - оставшееся место в магазине
     void reduce_bonus();
+    void reduce_bonus1();
 };
 
 int book_store::space_left = 50;
@@ -162,6 +167,26 @@ book_store::book_store(string str1, string str2, string str3, int a, int b, int 
     printf("New book initialized (with parameters)\n");
 }
 
+book_store::book_store(string str1, string str2, string str3, int a, int b, int c, int d, int e, special spec_offer[nmax / 10][nmax / 10])
+{
+    this->title = str1;
+    this->author = str2;
+    this->genre = str3;
+    this->price = a;
+    this->num_stock = b;
+    this->popularity = c;
+    this->n = d;
+    this->m = e;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            this->spec_offer1[i][j] = spec_offer[i][j];
+        }
+    }
+    printf("New book initialized (with parameters)\n");
+}
+
 void book_store::get() //установка значений
 {
     this->title;
@@ -180,10 +205,23 @@ void book_store::get() //установка значений
 void book_store::output() //вывод
 {
     std::cout << "\nTitle: " << title << "\nAuthor: " << author << "\nGenre: " << genre << "\nPrice: " << price << "\nNumber in stock: " << num_stock << "\nPopularity: " << popularity << '\n';
-    printf("Number of bonuses: ");
+    //printf("Number of bonuses: ");
     for (int i = 0; i < n; i++)
     {
-        spec_offer[i].output1();
+        spec_offer[i].output();
+    }
+    printf("\n");
+}
+
+void book_store::output1()
+{
+    std::cout << "\nTitle: " << title << "\nAuthor: " << author << "\nGenre: " << genre << "\nPrice: " << price << "\nNumber in stock: " << num_stock << "\nPopularity: " << popularity << '\n';
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            spec_offer1[i][j].output();
+        }
     }
     printf("\n");
 }
@@ -260,244 +298,40 @@ void book_store::reduce_bonus() //сокращение числа бонусов
         this->spec_offer[i].reduce_bonus();
     }
 }
+
+void book_store::reduce_bonus1() //сокращение числа бонусов
+{
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            this->spec_offer1[i][j].reduce_bonus();
+        }
+    }
+}
+
 int main()
 {
-    int x = 0, y, z, n, m, k = 1, p, r; //переменные
+    int x = 0, y, z, x2, n, m, k = 1, p, r; //переменные
+    char* y2;
+    y2 = new char[10];
     string x1, y1, z1;
     string s1, s2, s3; //массивы
 
-    //статическая переменная
+    //статический одномерный массив массив
 
-    puts("\nWorking with a single static variable");
-    special spec_offer1[1]; //вызов конструктора по умолчанию (без параметров) статический 
-    puts("Input information about the 1 book\n");
-    printf("Input title: ");
-    cin >> s1;
-    printf("Input author: ");
-    cin >> s2;
-    printf("Input genre: ");
-    cin >> s3;
-    r = 0;
-    while (r == 0) //проверка корректности ввода цены
-    {
-        printf("Input price: ");
-        r = 1;
-        cin >> x1;
-        try
-        {
-            if (!isdigit(x1[0])) //если цена - цифра
-                throw 1;
-            x = stoi(x1);
-        }
-        catch (int v)
-        {
-            cout << "Incorrect value\n"; //сообщение об ошибке
-            r = 0;
-        }
-        if (r == 1)
-        {
-            continue;
-        }
-    }
-    r = 0;
-    while (r == 0) //проверка корректности ввода количества на складе
-    {
-        printf("Input number in stock: ");
-        r = 1;
-        cin >> y1;
-        try
-        {
-            if (!isdigit(y1[0])) //если количество на складе - цифра
-                throw 1;
-            y = stoi(y1);
-        }
-        catch (int v)
-        {
-            cout << "Incorrect value\n"; //сообщение об ошибке
-            r = 0;
-        }
-        if (r == 1)
-        {
-            continue;
-        }
-    }
-    r = 0;
-    while (r == 0) //проверка корректности ввода популярности
-    {
-        printf("Input popularity: ");
-        r = 1;
-        cin >> z1;
-        try
-        {
-            if (!isdigit(z1[0])) //если популярность - цифра
-                throw 1;
-            z = stoi(z1);
-        }
-        catch (int v)
-        {
-            cout << "Incorrect value\n"; //сообщение об ошибке
-            r = 0;
-        }
-        if (r == 1)
-        {
-            continue;
-        }
-    }
-    book_store book1(s1, s2, s3, x, y, z, 1, spec_offer1); //вызов конструктора с параметрами статический
-    printf("\nFirst book\n");
-    book1.get();
-    book1.output();
-    book1.sell();
-    printf("\nFirst book\n");
-    book1.get();
-    book1.output();
-    book1.price_rise();
-    printf("\nFirst book\n");
-    book1.get();
-    book1.output();
-    book1.rearrange();
-    printf("\nFirst book\n");
-    book1.get();
-    book1.output();
-    book1.archivate();
-    printf("\nFirst book\n");
-    book1.get();
-    book1.output();
-    book1.reduce_bonus();
-    printf("\nFirst book\n");
-    book1.get();
-    book1.output();
-    printf("\nLength of the 'genre' for the first book: %d\n", book_store::genre_len(book1));
-    book1.predictable_profit(&k);
-    printf("\nPredictable profit for the first book (using *): %d\n", k);
-    p = predictable_popularity(book1);
-    printf("\nPredictable popularity for the first book (friend fuction): %d\n", p);
-    printf("\nSpace left in the store: %d\n", book1.space_left);
-
-    //динамическая переменная
-
-    puts("\nWorking with a single dynamic variable");
-    special* spec_offer2 = new special(); //вызов конструктора по умолчанию (без параметров) динамический 
-    puts("\nInput information about the 2 book\n");
-    printf("Input title: ");
-    cin >> s1;
-    printf("Input author: ");
-    cin >> s2;
-    printf("Input genre: ");
-    cin >> s3;
-    r = 0;
-    while (r == 0) //проверка корректности ввода цены
-    {
-        printf("Input price: ");
-        r = 1;
-        cin >> x1;
-        try
-        {
-            if (!isdigit(x1[0])) //если цена - цифра
-                throw 1;
-            x = stoi(x1);
-        }
-        catch (int v)
-        {
-            cout << "Incorrect value\n"; //сообщение об ошибке
-            r = 0;
-        }
-        if (r == 1)
-        {
-            continue;
-        }
-    }
-    r = 0;
-    while (r == 0) //проверка корректности ввода количества на складе
-    {
-        printf("Input number in stock: ");
-        r = 1;
-        cin >> y1;
-        try
-        {
-            if (!isdigit(y1[0])) //если количество на складе - цифра
-                throw 1;
-            y = stoi(y1);
-        }
-        catch (int v)
-        {
-            cout << "Incorrect value\n"; //сообщение об ошибке
-            r = 0;
-        }
-        if (r == 1)
-        {
-            continue;
-        }
-    }
-    r = 0;
-    while (r == 0) //проверка корректности ввода популярности
-    {
-        printf("Input popularity: ");
-        r = 1;
-        cin >> z1;
-        try
-        {
-            if (!isdigit(z1[0])) //если популярность - цифра
-                throw 1;
-            z = stoi(z1);
-        }
-        catch (int v)
-        {
-            cout << "Incorrect value\n"; //сообщение об ошибке
-            r = 0;
-        }
-        if (r == 1)
-        {
-            continue;
-        }
-    }
-    book_store* book2 = new book_store(s1, s2, s3, x, y, z, 1, spec_offer2); //вызов конструктора с параметрами динамический
-    printf("\nSecond book\n");
-    book2->get();
-    book2->output();
-    book2->sell();
-    printf("\nSecond book\n");
-    book2->get();
-    book2->output();
-    book2->price_rise();
-    printf("\nSecond book\n");
-    book2->get();
-    book2->output();
-    book2->rearrange();
-    printf("\nSecond book\n");
-    book2->get();
-    book2->output();
-    book2->archivate();
-    printf("\nSecond book\n");
-    book2->get();
-    book2->output();
-    book2->reduce_bonus();
-    printf("\nSecond book\n");
-    book2->get();
-    book2->output();
-    book2->genre_compare(book1);
-    k = 1;
-    book2->predictable_profit(k);
-    printf("\nPredictable profit for the second book (using &): %d\n", k);
-    printf("\nSummarizing nums of books\nSum = %d\n", book2->summarize(book1.num_stock));
-    p = 0;
-    p = predictable_popularity(*book2);
-    printf("\nPredictable popularity for the second book (friend fuction): %d\n", p);
-    book2->space_left = 40;
-    printf("\nSpace left in the store (using 1 book): %d\n", book1.space_left);
-    printf("\nSpace left in the store (using 2 book): %d\n", book2->space_left);
-    delete book2;
-    book2 = NULL;
-
-    //статический массив
-
-    puts("\nWorking with a static massive\n");
+    puts("\nWorking with a static one-sized massive\n");
     special spec_offer3[nmax / 10]; //вызов конструктора по умолчанию (без параметров) статический
     puts("Input number of specials\n");
     scanf_s("%d", &n);
     for (int i = 0; i < n; i++)
     {
-        spec_offer3[i].set_default();
+        printf("\nInput number of bonuses for %d special: ", i+1);
+        cin >> x2;
+        spec_offer3[i].change_bonus_num(x2);
+        printf("Input bonus definition for %d special: ", i+1);
+        cin >> y2;
+        spec_offer3[i].change_def(y2);
     }
     puts("\nInput information about 3 book\n");
     printf("Input title: ");
@@ -603,9 +437,131 @@ int main()
     p = predictable_popularity(*book3);
     printf("\nPredictable popularity for the first book (friend fuction): %d\n", p);
 
+    //статический двумерный массив
+
+    puts("\nWorking with a static two-sized massive\n");
+    special spec_offer4[nmax / 10][nmax / 10]; //вызов конструктора по умолчанию (без параметров) статический
+    puts("Input number of specials (n and m)\n");
+    scanf_s("%d %d", &n, &m);
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            printf("\nInput number of bonuses for %d special: ", i + 1);
+            cin >> x2;
+            spec_offer4[i][j].change_bonus_num(x2);
+            printf("Input bonus definition for %d special: ", i + 1);
+            cin >> y2;
+            spec_offer4[i][j].change_def(y2);
+        }
+    }
+    puts("\nInput information about 3 book\n");
+    printf("Input title: ");
+    cin >> s1;
+    printf("Input author: ");
+    cin >> s2;
+    printf("Input genre: ");
+    cin >> s3;
+    r = 0;
+    while (r == 0) //проверка корректности ввода цены
+    {
+        printf("Input price: ");
+        r = 1;
+        cin >> x1;
+        try
+        {
+            if (!isdigit(x1[0])) //если цена - цифра
+                throw 1;
+            x = stoi(x1);
+        }
+        catch (int v)
+        {
+            cout << "Incorrect value\n"; //сообщение об ошибке
+            r = 0;
+        }
+        if (r == 1)
+        {
+            continue;
+        }
+    }
+    r = 0;
+    while (r == 0) //проверка корректности ввода количества на складе
+    {
+        printf("Input number in stock: ");
+        r = 1;
+        cin >> y1;
+        try
+        {
+            if (!isdigit(y1[0])) //если количество на складе - цифра
+                throw 1;
+            y = stoi(y1);
+        }
+        catch (int v)
+        {
+            cout << "Incorrect value\n"; //сообщение об ошибке
+            r = 0;
+        }
+        if (r == 1)
+        {
+            continue;
+        }
+    }
+    r = 0;
+    while (r == 0) //проверка корректности ввода популярности
+    {
+        printf("Input popularity: ");
+        r = 1;
+        cin >> z1;
+        try
+        {
+            if (!isdigit(z1[0])) //если популярность - цифра
+                throw 1;
+            z = stoi(z1);
+        }
+        catch (int v)
+        {
+            cout << "Incorrect value\n"; //сообщение об ошибке
+            r = 0;
+        }
+        if (r == 1)
+        {
+            continue;
+        }
+    }
+    book_store* book4 = new book_store(s1, s2, s3, x, y, z, n, m, spec_offer4); //вызов конструктора с параметрами динамический
+    printf("\nYour book\n");
+    book4->get();
+    book4->output1();
+    book4->sell();
+    printf("\nThird book\n");
+    book4->get();
+    book4->output1();
+    book4->price_rise();
+    printf("\nThird book\n");
+    book4->get();
+    book4->output1();
+    book4->rearrange();
+    printf("\nThird book\n");
+    book4->get();
+    book4->output1();
+    book4->archivate();
+    printf("\nThird book\n");
+    book4->get();
+    book4->output1();
+    puts("Decreasing number for all the specials");
+    book4->reduce_bonus1();
+    book4->get();
+    book4->output1();
+    k = 1;
+    p = 0;
+    book4->predictable_profit(&k);
+    printf("\nPredictable profit for the third book (using *): %d\n", k);
+    p = predictable_popularity(*book4);
+    printf("\nPredictable popularity for the first book (friend fuction): %d\n", p);
+
     //массив с помощью конструктора с параметром
 
-    printf("\nMassive using constructor with a single parameter\n");
+    /*printf("\nMassive using constructor with a single parameter\n");
     special spec_offer5[1];
     string title1 = "rrrr";
     string title2 = "ffff";
@@ -613,11 +569,11 @@ int main()
     for (int i = 0; i < 2; i++)
     {
         book5[i].output();
-    }
+    }*/
 
     //мелкое копирование
 
-    printf("\nShallow copying\n");
+    /*printf("\nShallow copying\n");
     char* ptr1;
     ptr1 = new char[10];
 
@@ -636,11 +592,11 @@ int main()
     printf("\nspec_offer6\n");
     spec_offer6.output();
     printf("\nspec_offer7\n");
-    spec_offer7.output();
+    spec_offer7.output();*/
 
     //глубокое копирование
 
-    printf("\nDeep copying and overload\n");
+    /*printf("\nDeep copying and overload\n");
     special* spec_offer_1;
     char* ptr;
     ptr = new char[10];
@@ -664,7 +620,7 @@ int main()
     printf("\nspec_offer_1\n");
     spec_offer_1->output();
     printf("\nspec_offer_2\n");
-    spec_offer_2->output();
+    spec_offer_2->output();*/
     return 0;
 }
 
