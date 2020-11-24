@@ -1,5 +1,5 @@
 ﻿// PLab11.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+//Работа с одно- и двумерными массивами
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -88,9 +88,9 @@ public:
 
 class book_store //основной класс
 {
-    special spec_offer[nmax]; //ассоциативный класс
-    special spec_offer1[nmax][nmax];
-    int n;
+    special spec_offer[nmax]; //ассоциативный класс одномерный массив
+    special spec_offer1[nmax][nmax]; //ассоциативный класс двумерный массив
+    int n; //размерности массивов
     int m;
     std::string title = ""; //название
     std::string author = ""; //автор
@@ -100,8 +100,8 @@ class book_store //основной класс
 public:
     int num_stock; //количество в магазине
     book_store(special spec_offer[nmax]); //конструктор параметром
-    book_store(string str1, string str2, string str3, int a, int b, int c, int d, special spec_offer[nmax]); //конструктор с параметрами
-    book_store(string str1, string str2, string str3, int a, int b, int c, int d, int e, special spec_offer[nmax / 10][nmax / 10]);
+    book_store(string str1, string str2, string str3, int a, int b, int c, int d, special spec_offer[nmax]); //конструктор с параметрами для одномерного массива
+    book_store(string str1, string str2, string str3, int a, int b, int c, int d, int e, special spec_offer[nmax / 10][nmax / 10]); //конструктор с параметрами для двумерного массива
     book_store(string str1); //конструктор параметром
     void get();
     void output();
@@ -117,8 +117,8 @@ public:
     friend int predictable_popularity(book_store book);
     int summarize(int a);
     static int space_left; //статическое поле - оставшееся место в магазине
-    void reduce_bonus();
-    void reduce_bonus1();
+    void reduce_bonus(); //метод для одномерного массива
+    void reduce_bonus1(); //метод для двумерного массива
 };
 
 int book_store::space_left = 50;
@@ -151,7 +151,7 @@ book_store::book_store(string str) //конструктор с параметр�
     this->spec_offer[1].set_default();
 }
 
-book_store::book_store(string str1, string str2, string str3, int a, int b, int c, int d, special spec_offer[nmax]) //конструктор с параметрами
+book_store::book_store(string str1, string str2, string str3, int a, int b, int c, int d, special spec_offer[nmax]) //конструктор с параметрами для одномерного массива
 {
     this->title = str1;
     this->author = str2;
@@ -167,7 +167,7 @@ book_store::book_store(string str1, string str2, string str3, int a, int b, int 
     printf("New book initialized (with parameters)\n");
 }
 
-book_store::book_store(string str1, string str2, string str3, int a, int b, int c, int d, int e, special spec_offer[nmax / 10][nmax / 10])
+book_store::book_store(string str1, string str2, string str3, int a, int b, int c, int d, int e, special spec_offer[nmax / 10][nmax / 10]) //конструктор с параметрами для двумерного массива
 {
     this->title = str1;
     this->author = str2;
@@ -291,7 +291,7 @@ int predictable_popularity(book_store book) //подсчет ожидаемой 
     return book.num_stock * 5 + book.popularity;
 }
 
-void book_store::reduce_bonus() //сокращение числа бонусов
+void book_store::reduce_bonus() //сокращение числа бонусов для одномерного массива
 {
     for (int i = 0; i < n; i++)
     {
@@ -299,7 +299,7 @@ void book_store::reduce_bonus() //сокращение числа бонусов
     }
 }
 
-void book_store::reduce_bonus1() //сокращение числа бонусов
+void book_store::reduce_bonus1() //сокращение числа бонусов для двумерного массива
 {
     for (int i = 0; i < n; i++)
     {
@@ -318,18 +318,18 @@ int main()
     string x1, y1, z1;
     string s1, s2, s3; //массивы
 
-    //статический одномерный массив массив
+    //статический одномерный массив
 
     puts("\nWorking with a static one-sized massive\n");
     special spec_offer3[nmax / 10]; //вызов конструктора по умолчанию (без параметров) статический
     puts("Input number of specials\n");
     scanf_s("%d", &n);
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n; i++) //ввод одномерного массива
     {
-        printf("\nInput number of bonuses for %d special: ", i+1);
+        printf("\nInput number of bonuses for [%d] special: ", i+1);
         cin >> x2;
         spec_offer3[i].change_bonus_num(x2);
-        printf("Input bonus definition for %d special: ", i+1);
+        printf("Input bonus definition for [%d] special: ", i+1);
         cin >> y2;
         spec_offer3[i].change_def(y2);
     }
@@ -443,7 +443,7 @@ int main()
     special spec_offer4[nmax / 10][nmax / 10]; //вызов конструктора по умолчанию (без параметров) статический
     puts("Input number of specials (n and m)\n");
     scanf_s("%d %d", &n, &m);
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n; i++) //ввод двумерного массива
     {
         for (int j = 0; j < m; j++)
         {
